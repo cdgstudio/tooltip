@@ -1,0 +1,7 @@
+<ng-container *ngIf="asString as string">
+  {{ string }}
+</ng-container>
+
+<ng-container *ngIf="asTemplate as template">
+  <ng-template [ngTemplateOutlet]="template"></ng-template>
+</ng-container>

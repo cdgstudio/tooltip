@@ -1,0 +1,6 @@
+<div class="container my-5 d-flex gap-1 justify-content-center">
+  <button type="button" class="btn btn-secondary" appTooltip="test">Tooltip as string</button>
+  <button type="button" class="btn btn-secondary" [appTooltip]="templateForTooltip">Tooltip as template</button>
+</div>
+
+<ng-template #templateForTooltip> <strong>Hello</strong> from template </ng-template>
