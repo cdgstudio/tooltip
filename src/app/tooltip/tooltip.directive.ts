@@ -75,6 +75,14 @@ export class TooltipDirective implements OnDestroy {
           originY: 'top',
           overlayX: 'center',
           overlayY: 'bottom',
+          panelClass: 'top',
+        },
+        {
+          originX: 'center',
+          originY: 'bottom',
+          overlayX: 'center',
+          overlayY: 'top',
+          panelClass: 'bottom',
         },
       ]);
   }

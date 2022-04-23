@@ -5,6 +5,14 @@
   font-size: .85rem;
   color: #fff;
   background: #000;
-  margin-bottom: 10px;
   border-radius: 0.25rem;
+  box-sizing: border-box;
+}
+
+:host-context(.top){
+  margin-bottom: 10px;
+}
+
+:host-context(.bottom){
+  margin-top: 10px;
 }
