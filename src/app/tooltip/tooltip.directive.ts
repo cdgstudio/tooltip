@@ -1,4 +1,4 @@
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import {
   Directive,
@@ -10,13 +10,13 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { TooltipContainerComponent, TOOLTIP_DATA } from './tooltip-container/tooltip-container.component';
+import { TooltipContainerComponent, TooltipData, TOOLTIP_DATA } from './tooltip-container/tooltip-container.component';
 
 @Directive({
   selector: '[appTooltip]',
 })
 export class TooltipDirective implements OnDestroy {
-  @Input() appTooltip!: string | TemplateRef<void>;
+  @Input() appTooltip!: TooltipData;
 
   private overlayRef: OverlayRef | null = null;
 
@@ -28,7 +28,7 @@ export class TooltipDirective implements OnDestroy {
 
   @HostListener('mouseenter')
   @HostListener('focus')
-  showTooltip() {
+  showTooltip(): void {
     if (this.overlayRef?.hasAttached() === true) {
       return;
     }
@@ -38,7 +38,7 @@ export class TooltipDirective implements OnDestroy {
 
   @HostListener('mouseleave')
   @HostListener('blur')
-  hideTooltip() {
+  hideTooltip(): void {
     if (this.overlayRef?.hasAttached() === true) {
       this.overlayRef?.detach();
     }
@@ -50,7 +50,8 @@ export class TooltipDirective implements OnDestroy {
 
   private attachTooltip(): void {
     if (this.overlayRef === null) {
-      this.overlayRef = this.overlay.create({ positionStrategy: this.getTooltipPositions() });
+      const positionStrategy = this.getPositionStrategy();
+      this.overlayRef = this.overlay.create({ positionStrategy });
     }
 
     const injector = Injector.create({
@@ -65,7 +66,7 @@ export class TooltipDirective implements OnDestroy {
     this.overlayRef.attach(component);
   }
 
-  private getTooltipPositions() {
+  private getPositionStrategy(): PositionStrategy {
     return this.overlay
       .position()
       .flexibleConnectedTo(this.element)

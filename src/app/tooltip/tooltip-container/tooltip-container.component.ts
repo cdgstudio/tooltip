@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject, InjectionToken, TemplateRef } from '@angular/core';
 
-export const TOOLTIP_DATA = new InjectionToken<string | TemplateRef<void>>('Data to display in tooltip');
+export type TooltipData = string | TemplateRef<void>;
+export const TOOLTIP_DATA = new InjectionToken<TooltipData>('Data to display in tooltip');
 
 @Component({
   selector: 'app-tooltip-container',
@@ -17,5 +18,5 @@ export class TooltipContainerComponent {
     return this.tooltipData instanceof TemplateRef ? this.tooltipData : false;
   }
 
-  constructor(@Inject(TOOLTIP_DATA) public tooltipData: string | TemplateRef<void>) {}
+  constructor(@Inject(TOOLTIP_DATA) public tooltipData: TooltipData) {}
 }
