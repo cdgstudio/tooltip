@@ -1,3 +1,14 @@
-@import '~bootstrap/scss/bootstrap';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import '~@angular/cdk/overlay-prebuilt';
 
+html,
+body {
+  @apply h-full w-full;
+}
+
+body {
+  @apply flex items-center justify-center min-h-full;
+}
