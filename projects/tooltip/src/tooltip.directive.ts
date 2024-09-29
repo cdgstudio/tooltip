@@ -1,21 +1,20 @@
 import { Overlay, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Directive, ElementRef, HostListener, Injector, Input, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, HostListener, Injector, Input, OnDestroy, ViewContainerRef, inject } from '@angular/core';
 import { TooltipContainerComponent, TooltipData, TOOLTIP_DATA } from './tooltip-container/tooltip-container.component';
 
 @Directive({
-  selector: '[appTooltip]',
+    selector: '[appTooltip]',
+    standalone: true,
 })
 export class TooltipDirective implements OnDestroy {
+  private element = inject<ElementRef<HTMLElement>>(ElementRef);
+  private overlay = inject(Overlay);
+  private viewContainer = inject(ViewContainerRef);
+
   @Input() appTooltip!: TooltipData;
 
   private overlayRef: OverlayRef | null = null;
-
-  constructor(
-    private element: ElementRef<HTMLElement>,
-    private overlay: Overlay,
-    private viewContainer: ViewContainerRef,
-  ) {}
 
   @HostListener('mouseenter')
   @HostListener('focus')
