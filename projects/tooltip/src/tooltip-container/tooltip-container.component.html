@@ -1,7 +1,7 @@
-@if (isString; as string) {
-  {{ string }}
-} 
+@let data = tooltipData;
 
-@if (isTemplate; as template) {
-  <ng-template [ngTemplateOutlet]="template"/>
+@if (isString(data)) {
+  {{ data }}
+} @else {
+  <ng-template [ngTemplateOutlet]="data"/>
 }

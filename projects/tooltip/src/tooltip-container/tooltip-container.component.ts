@@ -5,21 +5,21 @@ export type TooltipData = string | TemplateRef<void>;
 export const TOOLTIP_DATA = new InjectionToken<TooltipData>("Data to display in tooltip");
 
 @Component({
-    selector: "app-tooltip-container",
-    templateUrl: "./tooltip-container.component.html",
-    styleUrls: ["./tooltip-container.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [NgTemplateOutlet],
+  selector: "app-tooltip-container",
+  templateUrl: "./tooltip-container.component.html",
+  styleUrls: ["./tooltip-container.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgTemplateOutlet],
 })
 export class TooltipContainerComponent {
   tooltipData = inject<TooltipData>(TOOLTIP_DATA);
 
-  get isString(): string | false {
-    return typeof this.tooltipData === "string" ? this.tooltipData : false;
+  isString(value: TooltipData): value is string {
+    return typeof value === "string";
   }
 
-  get isTemplate(): TemplateRef<void> | false {
-    return this.tooltipData instanceof TemplateRef ? this.tooltipData : false;
+  isTemplate(value: TooltipData): value is TemplateRef<void> {
+    return this.tooltipData instanceof TemplateRef;
   }
 }
