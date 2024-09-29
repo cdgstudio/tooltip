@@ -4,7 +4,8 @@ import { Directive, ElementRef, HostListener, Injector, Input, OnDestroy, ViewCo
 import { TooltipContainerComponent, TooltipData, TOOLTIP_DATA } from './tooltip-container/tooltip-container.component';
 
 @Directive({
-  selector: '[appTooltip]',
+    selector: '[appTooltip]',
+    standalone: true,
 })
 export class TooltipDirective implements OnDestroy {
   private element = inject<ElementRef<HTMLElement>>(ElementRef);
