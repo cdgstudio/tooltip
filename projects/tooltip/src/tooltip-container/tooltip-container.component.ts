@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, InjectionToken, TemplateRef } from "@angular/core";
+import { ChangeDetectionStrategy, Component, InjectionToken, TemplateRef, inject } from "@angular/core";
 
 export type TooltipData = string | TemplateRef<void>;
 export const TOOLTIP_DATA = new InjectionToken<TooltipData>("Data to display in tooltip");
@@ -10,6 +10,8 @@ export const TOOLTIP_DATA = new InjectionToken<TooltipData>("Data to display in 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TooltipContainerComponent {
+  tooltipData = inject<TooltipData>(TOOLTIP_DATA);
+
   get isString(): string | false {
     return typeof this.tooltipData === "string" ? this.tooltipData : false;
   }
@@ -17,6 +19,4 @@ export class TooltipContainerComponent {
   get isTemplate(): TemplateRef<void> | false {
     return this.tooltipData instanceof TemplateRef ? this.tooltipData : false;
   }
-
-  constructor(@Inject(TOOLTIP_DATA) public tooltipData: TooltipData) {}
 }
